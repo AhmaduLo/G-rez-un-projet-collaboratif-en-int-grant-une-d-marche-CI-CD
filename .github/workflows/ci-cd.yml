@@ -35,6 +35,9 @@ jobs:
       - name: Run tests
         run: mvn test
 
+      - name: Compile classes (needed for SonarCloud)
+        run: mvn clean compile
+
       - name: SonarCloud Scan (Backend)
         uses: SonarSource/sonarcloud-github-action@v2
         with:
