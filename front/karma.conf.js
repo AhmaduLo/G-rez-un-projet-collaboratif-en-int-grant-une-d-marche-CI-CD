@@ -38,7 +38,14 @@ module.exports = function (config) {
     colors: true,
     logLevel: config.LOG_INFO,
     autoWatch: true,
-    browsers: ["Chrome"],
+    // Ajout de la configuration spéciale CI
+    customLaunchers: {
+      ChromeHeadlessCI: {
+        base: 'ChromeHeadless',
+        flags: ['--no-sandbox', '--disable-gpu']
+      }
+    },
+    browsers: ["ChromeHeadlessCI"],
     singleRun: false,
     restartOnFileChange: true,
   });
