@@ -12,6 +12,9 @@ jobs:
   backend:
     name: Backend CI
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./back
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -31,20 +34,22 @@ jobs:
 
       - name: Run tests
         run: mvn test
-        working-directory: ./back
 
       - name: SonarCloud Scan (Backend)
         uses: SonarSource/sonarcloud-github-action@v2
         with:
-          projectBaseDir: ./back
+          projectBaseDir: .
           args: >
-            -Dsonar.projectKey=${{ secrets.SONAR_PROJECT_KEY }}
+            -Dsonar.projectKey=${{ secrets.SONAR_PROJECT_KEY_BACK }}
             -Dsonar.organization=${{ secrets.SONAR_ORGANIZATION }}
             -Dsonar.login=${{ secrets.SONAR_TOKEN }}
 
   frontend:
     name: Frontend CI
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./front
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -55,17 +60,15 @@ jobs:
           node-version: 18
 
       - name: Install dependencies
-        run: yarn
-        working-directory: ./front
+        run: yarn install
 
       - name: Run tests
-        run: npm run test -- --watch=false --browsers=ChromeHeadlessCI
-        working-directory: ./front
+        run: yarn test --watch=false --browsers=ChromeHeadlessCI
 
       - name: SonarCloud Scan (Frontend)
         uses: SonarSource/sonarcloud-github-action@v2
         with:
-          projectBaseDir: ./front
+          projectBaseDir: .
           args: >
             -Dsonar.projectKey=${{ secrets.SONAR_PROJECT_KEY_FRONT }}
             -Dsonar.organization=${{ secrets.SONAR_ORGANIZATION }}
