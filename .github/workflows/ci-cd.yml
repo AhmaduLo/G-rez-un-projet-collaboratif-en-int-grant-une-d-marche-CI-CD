@@ -63,7 +63,7 @@ jobs:
         run: yarn install
 
       - name: Run tests
-        run: yarn test --watch=false --browsers=ChromeHeadlessCI
+        run: yarn test --watch=false --browsers=ChromeHeadless
 
       - name: SonarCloud Scan (Frontend)
         uses: SonarSource/sonarcloud-github-action@v2
@@ -72,8 +72,9 @@ jobs:
           args: >
             -Dsonar.projectKey=projet10-frontend
             -Dsonar.organization=ahmaduLo
-            env:
-            SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+
 
   docker:
     name: Docker Build & Push
