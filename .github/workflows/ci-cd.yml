@@ -42,7 +42,8 @@ jobs:
           args: >
             -Dsonar.projectKey=${{ secrets.SONAR_PROJECT_KEY_BACK }}
             -Dsonar.organization=${{ secrets.SONAR_ORGANIZATION }}
-            -Dsonar.login=${{ secrets.SONAR_TOKEN }}
+            env:
+                     SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
   frontend:
     name: Frontend CI
