@@ -12,9 +12,6 @@ jobs:
   backend:
     name: Backend CI
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: ./back
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -34,6 +31,7 @@ jobs:
 
       - name: Run tests
         run: mvn test
+        working-directory: ./back
 
       - name: SonarCloud Scan (Backend)
         uses: SonarSource/sonarcloud-github-action@v2
@@ -47,9 +45,6 @@ jobs:
   frontend:
     name: Frontend CI
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: ./front
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -61,9 +56,11 @@ jobs:
 
       - name: Install dependencies
         run: yarn
+        working-directory: ./front
 
       - name: Run tests
         run: npm run test -- --watch=false --browsers=ChromeHeadlessCI
+        working-directory: ./front
 
       - name: SonarCloud Scan (Frontend)
         uses: SonarSource/sonarcloud-github-action@v2
