@@ -70,7 +70,7 @@ jobs:
         with:
           projectBaseDir: ./front
           args: >
-            -Dsonar.projectKey=projet10-frontend
+            -Dsonar.projectKey=AhmaduLo_projet10-frontend
             -Dsonar.organization=ahmaduLo
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
