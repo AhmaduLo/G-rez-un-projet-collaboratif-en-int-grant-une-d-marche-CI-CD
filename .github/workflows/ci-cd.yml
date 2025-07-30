@@ -32,11 +32,9 @@ jobs:
           key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
           restore-keys: ${{ runner.os }}-maven-
 
-      - name: Compile classes
-        run: mvn clean compile
+      - name: Run tests and generate coverage
+        run: mvn clean verify
 
-      - name: Run tests
-        run: mvn test
 
       - name: SonarCloud Scan (Backend)
         uses: SonarSource/sonarcloud-github-action@v2
